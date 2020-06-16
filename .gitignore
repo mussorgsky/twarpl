@@ -2,3 +2,4 @@ Binaries/*
 *.o
 *~
 *.gcode
+\#*.dxf
