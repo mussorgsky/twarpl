@@ -3,3 +3,4 @@ Binaries/*
 *~
 *.gcode
 \#*.dxf
+.vscode/*
