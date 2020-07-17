@@ -9,7 +9,7 @@
 
 class DXFParser
 {
-    std::ifstream &file;
+    std::ifstream &m_file;
 
     std::string entities[5] = {
         "LINE",
@@ -45,7 +45,7 @@ class DXFParser
     void remove_char(std::string &, std::string);
 
 public:
-    DXFParser(std::ifstream &file) : file(file)
+    DXFParser(std::ifstream &file) : m_file(file)
     {
     }
 

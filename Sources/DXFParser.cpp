@@ -11,13 +11,13 @@ void DXFParser::remove_char(std::string &line, std::string to_delete)
 void DXFParser::parse()
 {
     bool in_entity = false;
-    while (!file.eof())
+    while (!m_file.eof())
     {
         std::string line, value;
         int group_code;
 
-        std::getline(file, line);
-        std::getline(file, value);
+        std::getline(m_file, line);
+        std::getline(m_file, value);
 
         group_code = std::stoi(line);
         remove_char(value, " \r");
