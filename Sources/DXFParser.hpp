@@ -1,15 +1,20 @@
 #ifndef DXFParser_hpp
 #define DXFParser_hpp
 
+#include "DXFEntity.hpp"
+
 #include <fstream>
 #include <iostream>
 #include <algorithm>
 #include <vector>
 #include <map>
+#include <memory>
 
 class DXFParser
 {
     std::ifstream &m_file;
+
+    std::vector<std::shared_ptr<DXFEntity>> m_parsed_entities;
 
     std::string entities[5] = {
         "LINE",

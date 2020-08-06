@@ -11,6 +11,7 @@ void DXFParser::remove_char(std::string &line, std::string to_delete)
 void DXFParser::parse()
 {
     bool in_entity = false;
+    std::shared_ptr<DXFEntity> mid_parse_entity;
     while (!m_file.eof())
     {
         std::string line, value;
@@ -28,6 +29,10 @@ void DXFParser::parse()
             if (code != group_codes.end())
             {
                 std::cout << "\t" << code->second << "\t" << value << "\n";
+                if (mid_parse_entity)
+                {
+                    mid_parse_entity->insert_property(group_code, std::stof(value));
+                }
             }
         }
 
@@ -35,6 +40,11 @@ void DXFParser::parse()
         {
             std::cout << "Exiting entity\n";
             in_entity = false;
+            if (mid_parse_entity)
+            {
+                m_parsed_entities.push_back(mid_parse_entity);
+                mid_parse_entity = nullptr;
+            }
         }
 
         if (group_code == 0 && !in_entity)
@@ -52,6 +62,10 @@ void DXFParser::parse()
             {
                 std::cout << "Entering entity:\t" << value << "\n";
                 in_entity = true;
+                if (value == "LINE")
+                {
+                    mid_parse_entity = std::make_shared<Line>();
+                }
             }
         }
 
@@ -59,5 +73,10 @@ void DXFParser::parse()
         {
             break;
         }
+    }
+
+    for (auto &ent : m_parsed_entities)
+    {
+        ent->bark();
     }
 }
