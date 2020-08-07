@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 echo 'Compiling...'
 g++ -std=c++17 -c Sources/main.cpp
