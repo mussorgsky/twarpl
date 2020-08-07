@@ -70,6 +70,10 @@ void DXFParser::parse()
                 {
                     mid_parse_entity = std::make_shared<Circle>();
                 }
+                if (value == "ARC")
+                {
+                    mid_parse_entity = std::make_shared<Arc>();
+                }
             }
         }
 

@@ -59,3 +59,39 @@ void Circle::bark()
     std::cout << "center at (" << x << ", " << y << ") with a radius of ";
     std::cout << "(" << r << ")\n";
 }
+
+void Arc::insert_property(int group_code, float value)
+{
+    switch (group_code)
+    {
+    case 10:
+        x = value;
+        break;
+
+    case 20:
+        y = value;
+        break;
+
+    case 40:
+        r = value;
+        break;
+
+    case 50:
+        start = value;
+        break;
+
+    case 51:
+        end = value;
+        break;
+
+    default:
+        break;
+    }
+}
+
+void Arc::bark()
+{
+    std::cout << "I'm a fully parsed ARC :)\t";
+    std::cout << "have a center (" << x << ", " << y << ") radius of " << r;
+    std::cout << " and such start end angles (" << start << ", " << end << ")\n";
+}

@@ -30,4 +30,14 @@ private:
     float x, y, r;
 };
 
+class Arc : public DXFEntity
+{
+public:
+    void insert_property(int group_code, float value) override;
+    void bark() override;
+
+private:
+    float x, y, r, start, end;
+};
+
 #endif
