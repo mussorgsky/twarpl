@@ -40,4 +40,14 @@ private:
     float x, y, r, start, end;
 };
 
+class Ellipse : public DXFEntity
+{
+public:
+    void insert_property(int group_code, float value) override;
+    void bark() override;
+
+private:
+    float center_x, center_y, major_x, major_y, ratio, start, end;
+};
+
 #endif

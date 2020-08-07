@@ -95,3 +95,48 @@ void Arc::bark()
     std::cout << "have a center (" << x << ", " << y << ") radius of " << r;
     std::cout << " and such start end angles (" << start << ", " << end << ")\n";
 }
+
+void Ellipse::insert_property(int group_code, float value)
+{
+    switch (group_code)
+    {
+    case 10:
+        center_x = value;
+        break;
+
+    case 20:
+        center_y = value;
+        break;
+
+    case 11:
+        major_x = value;
+        break;
+
+    case 21:
+        major_y = value;
+        break;
+
+    case 40:
+        ratio = value;
+        break;
+
+    case 41:
+        start = value;
+        break;
+
+    case 42:
+        end = value;
+        break;
+
+    default:
+        break;
+    }
+}
+
+void Ellipse::bark()
+{
+    std::cout << "I'm a fully parsed ELLIPSE :)\t";
+    std::cout << "have a center (" << center_x << ", " << center_y << ") axis ratio of " << ratio;
+    std::cout << " major axis is (" << major_x << ", " << major_y << ")";
+    std::cout << " start and end (" << start << ", " << end << ")\n";
+}

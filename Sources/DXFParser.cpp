@@ -74,6 +74,10 @@ void DXFParser::parse()
                 {
                     mid_parse_entity = std::make_shared<Arc>();
                 }
+                if (value == "ELLIPSE")
+                {
+                    mid_parse_entity = std::make_shared<Ellipse>();
+                }
             }
         }
 
