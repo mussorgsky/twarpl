@@ -16,14 +16,6 @@ class DXFParser
 
     std::vector<std::shared_ptr<DXFEntity>> m_parsed_entities;
 
-    std::string entities[5] = {
-        "LINE",
-        "ELLIPSE",
-        "ARC",
-        "CIRCLE",
-        "SPLINE",
-    };
-
     std::map<int, std::string> group_codes = {
         {0, "Entity type"},
         {10, "Control point X"},

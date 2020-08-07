@@ -28,7 +28,6 @@ void DXFParser::parse()
             auto code = group_codes.find(group_code);
             if (code != group_codes.end())
             {
-                std::cout << "\t" << code->second << "\t" << value << "\n";
                 if (mid_parse_entity)
                 {
                     mid_parse_entity->insert_property(group_code, std::stof(value));
@@ -38,7 +37,6 @@ void DXFParser::parse()
 
         if (group_code == 0 && in_entity)
         {
-            std::cout << "Exiting entity\n";
             in_entity = false;
             if (mid_parse_entity)
             {
@@ -49,39 +47,27 @@ void DXFParser::parse()
 
         if (group_code == 0 && !in_entity)
         {
-            bool we_care = false;
-            for (std::string entity : entities)
+            in_entity = true;
+
+            if (value == "LINE")
             {
-                if (value == entity)
-                {
-                    we_care = true;
-                    break;
-                }
+                mid_parse_entity = std::make_shared<Line>();
             }
-            if (we_care)
+            if (value == "CIRCLE")
             {
-                std::cout << "Entering entity:\t" << value << "\n";
-                in_entity = true;
-                if (value == "LINE")
-                {
-                    mid_parse_entity = std::make_shared<Line>();
-                }
-                if (value == "CIRCLE")
-                {
-                    mid_parse_entity = std::make_shared<Circle>();
-                }
-                if (value == "ARC")
-                {
-                    mid_parse_entity = std::make_shared<Arc>();
-                }
-                if (value == "ELLIPSE")
-                {
-                    mid_parse_entity = std::make_shared<Ellipse>();
-                }
-                if (value == "SPLINE")
-                {
-                    mid_parse_entity = std::make_shared<Spline>();
-                }
+                mid_parse_entity = std::make_shared<Circle>();
+            }
+            if (value == "ARC")
+            {
+                mid_parse_entity = std::make_shared<Arc>();
+            }
+            if (value == "ELLIPSE")
+            {
+                mid_parse_entity = std::make_shared<Ellipse>();
+            }
+            if (value == "SPLINE")
+            {
+                mid_parse_entity = std::make_shared<Spline>();
             }
         }
 
