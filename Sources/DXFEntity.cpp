@@ -31,3 +31,31 @@ void Line::bark()
     std::cout << "I start at (" << x1 << ", " << y1 << ") and end at ";
     std::cout << "(" << x2 << ", " << y2 << ")\n";
 }
+
+void Circle::insert_property(int group_code, float value)
+{
+    switch (group_code)
+    {
+    case 10:
+        x = value;
+        break;
+
+    case 20:
+        y = value;
+        break;
+
+    case 40:
+        r = value;
+        break;
+
+    default:
+        break;
+    }
+}
+
+void Circle::bark()
+{
+    std::cout << "I'm a fully parsed CIRCLE :)\t";
+    std::cout << "center at (" << x << ", " << y << ") with a radius of ";
+    std::cout << "(" << r << ")\n";
+}

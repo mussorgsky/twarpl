@@ -20,4 +20,14 @@ private:
     float x1, y1, x2, y2;
 };
 
+class Circle : public DXFEntity
+{
+public:
+    void insert_property(int group_code, float value) override;
+    void bark() override;
+
+private:
+    float x, y, r;
+};
+
 #endif

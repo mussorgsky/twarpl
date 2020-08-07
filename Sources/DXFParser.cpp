@@ -66,6 +66,10 @@ void DXFParser::parse()
                 {
                     mid_parse_entity = std::make_shared<Line>();
                 }
+                if (value == "CIRCLE")
+                {
+                    mid_parse_entity = std::make_shared<Circle>();
+                }
             }
         }
 
