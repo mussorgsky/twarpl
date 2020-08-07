@@ -6,6 +6,27 @@
 
 namespace DXF
 {
+    enum Codes
+    {
+        ENTITY_TYPE = 0,
+        CP_X = 10,
+        CP_Y = 20,
+        FP_X = 11,
+        FP_Y = 21,
+        RADIUS = 40,
+        KNOT_VALUE = 40,
+        SEMIMAJOR_AXIS_RATIO = 40,
+        ELLIPSE_START = 41,
+        ELLIPSE_END = 42,
+        KNOT_TOLERANCE = 42,
+        START_ANGLE = 50,
+        END_ANGLE = 51,
+        SPLINE_FLAG = 70,
+        SPLINE_DEGREE = 71,
+        KNOT_COUNT = 72,
+        CP_COUNT = 73,
+    };
+
     class Entity
     {
     public:

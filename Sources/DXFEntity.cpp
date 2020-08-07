@@ -6,19 +6,19 @@ namespace DXF
     {
         switch (group_code)
         {
-        case 10:
+        case Codes::CP_X:
             start_x = value;
             break;
 
-        case 20:
+        case Codes::CP_Y:
             start_y = value;
             break;
 
-        case 11:
+        case Codes::FP_X:
             end_x = value;
             break;
 
-        case 21:
+        case Codes::FP_Y:
             end_y = value;
             break;
 
@@ -38,15 +38,15 @@ namespace DXF
     {
         switch (group_code)
         {
-        case 10:
+        case Codes::CP_X:
             center_x = value;
             break;
 
-        case 20:
+        case Codes::CP_Y:
             center_y = value;
             break;
 
-        case 40:
+        case Codes::RADIUS:
             radius = value;
             break;
 
@@ -66,23 +66,23 @@ namespace DXF
     {
         switch (group_code)
         {
-        case 10:
+        case Codes::CP_X:
             center_x = value;
             break;
 
-        case 20:
+        case Codes::CP_Y:
             center_y = value;
             break;
 
-        case 40:
+        case Codes::RADIUS:
             radius = value;
             break;
 
-        case 50:
+        case Codes::START_ANGLE:
             start = value;
             break;
 
-        case 51:
+        case Codes::END_ANGLE:
             end = value;
             break;
 
@@ -102,31 +102,31 @@ namespace DXF
     {
         switch (group_code)
         {
-        case 10:
+        case Codes::CP_X:
             center_x = value;
             break;
 
-        case 20:
+        case Codes::CP_Y:
             center_y = value;
             break;
 
-        case 11:
+        case Codes::FP_X:
             major_x = value;
             break;
 
-        case 21:
+        case Codes::FP_Y:
             major_y = value;
             break;
 
-        case 40:
+        case Codes::SEMIMAJOR_AXIS_RATIO:
             ratio = value;
             break;
 
-        case 41:
+        case Codes::ELLIPSE_START:
             start = value;
             break;
 
-        case 42:
+        case Codes::ELLIPSE_END:
             end = value;
             break;
 
@@ -147,36 +147,36 @@ namespace DXF
     {
         switch (group_code)
         {
-        case 10:
+        case Codes::CP_X:
             x.push_back(value);
             break;
 
-        case 20:
+        case Codes::CP_Y:
             y.push_back(value);
             break;
 
-        case 40:
+        case Codes::KNOT_VALUE:
             knots.push_back(value);
             break;
 
-        case 42:
+        case Codes::KNOT_TOLERANCE:
             knot_tolerance = value;
             break;
 
-        case 70:
+        case Codes::SPLINE_FLAG:
             flags = (int)value;
             break;
 
-        case 71:
+        case Codes::SPLINE_DEGREE:
             degree = (int)value;
             break;
 
-        case 72:
+        case Codes::KNOT_COUNT:
             knot_count = (int)value;
             knots.reserve(knot_count);
             break;
 
-        case 73:
+        case Codes::CP_COUNT:
             cp_count = (int)value;
             x.reserve(cp_count);
             y.reserve(cp_count);

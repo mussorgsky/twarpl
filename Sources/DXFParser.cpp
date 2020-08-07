@@ -25,10 +25,9 @@ namespace DXF
             group_code = std::stoi(line);
             remove_char(value, " \r");
 
-            if (group_code != 0 && in_entity)
+            if (group_code != Codes::ENTITY_TYPE && in_entity)
             {
-                auto code = group_codes.find(group_code);
-                if (code != group_codes.end())
+                if (std::count(m_group_codes.begin(), m_group_codes.end(), group_code) > 0)
                 {
                     if (mid_parse_entity)
                     {
@@ -37,7 +36,7 @@ namespace DXF
                 }
             }
 
-            if (group_code == 0 && in_entity)
+            if (group_code == Codes::ENTITY_TYPE && in_entity)
             {
                 in_entity = false;
                 if (mid_parse_entity)
@@ -47,7 +46,7 @@ namespace DXF
                 }
             }
 
-            if (group_code == 0 && !in_entity)
+            if (group_code == Codes::ENTITY_TYPE && !in_entity)
             {
                 in_entity = true;
 
