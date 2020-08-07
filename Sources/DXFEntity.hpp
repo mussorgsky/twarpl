@@ -17,7 +17,7 @@ public:
     void bark() override;
 
 private:
-    float x1, y1, x2, y2;
+    float start_x, start_y, end_x, end_y;
 };
 
 class Circle : public DXFEntity
@@ -27,7 +27,7 @@ public:
     void bark() override;
 
 private:
-    float x, y, r;
+    float center_x, center_y, radius;
 };
 
 class Arc : public DXFEntity
@@ -37,7 +37,7 @@ public:
     void bark() override;
 
 private:
-    float x, y, r, start, end;
+    float center_x, center_y, radius, start, end;
 };
 
 class Ellipse : public DXFEntity

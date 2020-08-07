@@ -5,19 +5,19 @@ void Line::insert_property(int group_code, float value)
     switch (group_code)
     {
     case 10:
-        x1 = value;
+        start_x = value;
         break;
 
     case 20:
-        y1 = value;
+        start_y = value;
         break;
 
     case 11:
-        x2 = value;
+        end_x = value;
         break;
 
     case 21:
-        y2 = value;
+        end_y = value;
         break;
 
     default:
@@ -28,8 +28,8 @@ void Line::insert_property(int group_code, float value)
 void Line::bark()
 {
     std::cout << "I'm a fully parsed LINE :)\t";
-    std::cout << "I start at (" << x1 << ", " << y1 << ") and end at ";
-    std::cout << "(" << x2 << ", " << y2 << ")\n";
+    std::cout << "I start at (" << start_x << ", " << start_y << ") and end at ";
+    std::cout << "(" << end_x << ", " << end_y << ")\n";
 }
 
 void Circle::insert_property(int group_code, float value)
@@ -37,15 +37,15 @@ void Circle::insert_property(int group_code, float value)
     switch (group_code)
     {
     case 10:
-        x = value;
+        center_x = value;
         break;
 
     case 20:
-        y = value;
+        center_y = value;
         break;
 
     case 40:
-        r = value;
+        radius = value;
         break;
 
     default:
@@ -56,8 +56,8 @@ void Circle::insert_property(int group_code, float value)
 void Circle::bark()
 {
     std::cout << "I'm a fully parsed CIRCLE :)\t";
-    std::cout << "center at (" << x << ", " << y << ") with a radius of ";
-    std::cout << "(" << r << ")\n";
+    std::cout << "center at (" << center_x << ", " << center_y << ") with a radius of ";
+    std::cout << "(" << radius << ")\n";
 }
 
 void Arc::insert_property(int group_code, float value)
@@ -65,15 +65,15 @@ void Arc::insert_property(int group_code, float value)
     switch (group_code)
     {
     case 10:
-        x = value;
+        center_x = value;
         break;
 
     case 20:
-        y = value;
+        center_y = value;
         break;
 
     case 40:
-        r = value;
+        radius = value;
         break;
 
     case 50:
@@ -92,7 +92,7 @@ void Arc::insert_property(int group_code, float value)
 void Arc::bark()
 {
     std::cout << "I'm a fully parsed ARC :)\t";
-    std::cout << "have a center (" << x << ", " << y << ") radius of " << r;
+    std::cout << "have a center (" << center_x << ", " << center_y << ") radius of " << radius;
     std::cout << " and such start end angles (" << start << ", " << end << ")\n";
 }
 
