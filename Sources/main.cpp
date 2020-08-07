@@ -29,6 +29,6 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    DXFParser parser(in_file);
+    DXF::Parser parser(in_file);
     parser.parse();
 }
