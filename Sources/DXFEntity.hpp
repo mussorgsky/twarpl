@@ -2,6 +2,7 @@
 #define DXFEntity_hpp
 
 #include <iostream>
+#include <vector>
 
 class DXFEntity
 {
@@ -48,6 +49,18 @@ public:
 
 private:
     float center_x, center_y, major_x, major_y, ratio, start, end;
+};
+
+class Spline : public DXFEntity
+{
+public:
+    void insert_property(int group_code, float value) override;
+    void bark() override;
+
+private:
+    int flags, degree, knot_count, cp_count;
+    float knot_tolerance;
+    std::vector<float> knots, x, y;
 };
 
 #endif

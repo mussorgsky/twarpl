@@ -140,3 +140,68 @@ void Ellipse::bark()
     std::cout << " major axis is (" << major_x << ", " << major_y << ")";
     std::cout << " start and end (" << start << ", " << end << ")\n";
 }
+
+void Spline::insert_property(int group_code, float value)
+{
+    switch (group_code)
+    {
+    case 10:
+        x.push_back(value);
+        break;
+
+    case 20:
+        y.push_back(value);
+        break;
+
+    case 40:
+        knots.push_back(value);
+        break;
+
+    case 42:
+        knot_tolerance = value;
+        break;
+
+    case 70:
+        flags = (int)value;
+        break;
+
+    case 71:
+        degree = (int)value;
+        break;
+
+    case 72:
+        knot_count = (int)value;
+        knots.reserve(knot_count);
+        break;
+
+    case 73:
+        cp_count = (int)value;
+        x.reserve(cp_count);
+        y.reserve(cp_count);
+        break;
+
+    default:
+        break;
+    }
+}
+
+void Spline::bark()
+{
+    std::cout << "I'm a fully parsed spline :)\t";
+    std::cout << "my flags " << flags << " my degree " << degree;
+    std::cout << " tolerance " << knot_tolerance << "\n";
+
+    std::cout << "\tI've got " << knot_count << " knots:\t";
+    for (float knot : knots)
+    {
+        std::cout << knot << ", ";
+    }
+    std::cout << "\n";
+
+    std::cout << "\tI've got " << cp_count << " control points:\t";
+    for (int i = 0; i < cp_count; ++i)
+    {
+        std::cout << "(" << x[i] << ", " << y[i] << "), ";
+    }
+    std::cout << "\n";
+}
