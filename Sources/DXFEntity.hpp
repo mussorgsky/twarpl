@@ -27,6 +27,11 @@ namespace DXF
         CP_COUNT = 73,
     };
 
+    struct Point
+    {
+        float x, y;
+    };
+
     class Entity
     {
     public:
@@ -41,7 +46,7 @@ namespace DXF
         void bark() override;
 
     private:
-        float start_x, start_y, end_x, end_y;
+        Point start, end;
     };
 
     class Circle : public Entity
@@ -51,7 +56,8 @@ namespace DXF
         void bark() override;
 
     private:
-        float center_x, center_y, radius;
+        Point center;
+        float radius;
     };
 
     class Arc : public Entity
@@ -61,7 +67,8 @@ namespace DXF
         void bark() override;
 
     private:
-        float center_x, center_y, radius, start, end;
+        Point center;
+        float radius, start, end;
     };
 
     class Ellipse : public Entity
@@ -71,7 +78,8 @@ namespace DXF
         void bark() override;
 
     private:
-        float center_x, center_y, major_x, major_y, ratio, start, end;
+        Point center, major_axis;
+        float ratio, start, end;
     };
 
     class Spline : public Entity
@@ -81,9 +89,10 @@ namespace DXF
         void bark() override;
 
     private:
-        int flags, degree, knot_count, cp_count;
+        int flags, degree;
         float knot_tolerance;
-        std::vector<float> knots, x, y;
+        std::vector<float> knots;
+        std::vector<Point> cps;
     };
 
 } // namespace DXF

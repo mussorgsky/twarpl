@@ -7,19 +7,19 @@ namespace DXF
         switch (group_code)
         {
         case Codes::CP_X:
-            start_x = value;
+            start.x = value;
             break;
 
         case Codes::CP_Y:
-            start_y = value;
+            start.y = value;
             break;
 
         case Codes::FP_X:
-            end_x = value;
+            end.x = value;
             break;
 
         case Codes::FP_Y:
-            end_y = value;
+            end.y = value;
             break;
 
         default:
@@ -30,8 +30,8 @@ namespace DXF
     void Line::bark()
     {
         std::cout << "I'm a fully parsed LINE :)\t";
-        std::cout << "I start at (" << start_x << ", " << start_y << ") and end at ";
-        std::cout << "(" << end_x << ", " << end_y << ")\n";
+        std::cout << "I start at (" << start.x << ", " << start.y << ") and end at ";
+        std::cout << "(" << end.x << ", " << end.y << ")\n";
     }
 
     void Circle::insert_property(int group_code, float value)
@@ -39,11 +39,11 @@ namespace DXF
         switch (group_code)
         {
         case Codes::CP_X:
-            center_x = value;
+            center.x = value;
             break;
 
         case Codes::CP_Y:
-            center_y = value;
+            center.y = value;
             break;
 
         case Codes::RADIUS:
@@ -58,7 +58,7 @@ namespace DXF
     void Circle::bark()
     {
         std::cout << "I'm a fully parsed CIRCLE :)\t";
-        std::cout << "center at (" << center_x << ", " << center_y << ") with a radius of ";
+        std::cout << "center at (" << center.x << ", " << center.y << ") with a radius of ";
         std::cout << "(" << radius << ")\n";
     }
 
@@ -67,11 +67,11 @@ namespace DXF
         switch (group_code)
         {
         case Codes::CP_X:
-            center_x = value;
+            center.x = value;
             break;
 
         case Codes::CP_Y:
-            center_y = value;
+            center.y = value;
             break;
 
         case Codes::RADIUS:
@@ -94,7 +94,7 @@ namespace DXF
     void Arc::bark()
     {
         std::cout << "I'm a fully parsed ARC :)\t";
-        std::cout << "have a center (" << center_x << ", " << center_y << ") radius of " << radius;
+        std::cout << "have a center (" << center.x << ", " << center.y << ") radius of " << radius;
         std::cout << " and such start end angles (" << start << ", " << end << ")\n";
     }
 
@@ -103,19 +103,19 @@ namespace DXF
         switch (group_code)
         {
         case Codes::CP_X:
-            center_x = value;
+            center.x = value;
             break;
 
         case Codes::CP_Y:
-            center_y = value;
+            center.y = value;
             break;
 
         case Codes::FP_X:
-            major_x = value;
+            major_axis.x = value;
             break;
 
         case Codes::FP_Y:
-            major_y = value;
+            major_axis.y = value;
             break;
 
         case Codes::SEMIMAJOR_AXIS_RATIO:
@@ -138,8 +138,8 @@ namespace DXF
     void Ellipse::bark()
     {
         std::cout << "I'm a fully parsed ELLIPSE :)\t";
-        std::cout << "have a center (" << center_x << ", " << center_y << ") axis ratio of " << ratio;
-        std::cout << " major axis is (" << major_x << ", " << major_y << ")";
+        std::cout << "have a center (" << center.x << ", " << center.y << ") axis ratio of " << ratio;
+        std::cout << " major axis is (" << major_axis.x << ", " << major_axis.y << ")";
         std::cout << " start and end (" << start << ", " << end << ")\n";
     }
 
@@ -148,11 +148,11 @@ namespace DXF
         switch (group_code)
         {
         case Codes::CP_X:
-            x.push_back(value);
+            cps.push_back(Point{value, 0.0f});
             break;
 
         case Codes::CP_Y:
-            y.push_back(value);
+            cps.back().y = value;
             break;
 
         case Codes::KNOT_VALUE:
@@ -172,14 +172,11 @@ namespace DXF
             break;
 
         case Codes::KNOT_COUNT:
-            knot_count = (int)value;
-            knots.reserve(knot_count);
+            knots.reserve((int)value);
             break;
 
         case Codes::CP_COUNT:
-            cp_count = (int)value;
-            x.reserve(cp_count);
-            y.reserve(cp_count);
+            cps.reserve((int)value);
             break;
 
         default:
@@ -193,17 +190,17 @@ namespace DXF
         std::cout << "my flags " << flags << " my degree " << degree;
         std::cout << " tolerance " << knot_tolerance << "\n";
 
-        std::cout << "\tI've got " << knot_count << " knots:\t";
+        std::cout << "\tI've got " << knots.size() << " knots:\t";
         for (float knot : knots)
         {
             std::cout << knot << ", ";
         }
         std::cout << "\n";
 
-        std::cout << "\tI've got " << cp_count << " control points:\t";
-        for (int i = 0; i < cp_count; ++i)
+        std::cout << "\tI've got " << cps.size() << " control points:\t";
+        for (Point cp : cps)
         {
-            std::cout << "(" << x[i] << ", " << y[i] << "), ";
+            std::cout << "(" << cp.x << ", " << cp.y << "), ";
         }
         std::cout << "\n";
     }
