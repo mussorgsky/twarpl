@@ -1,6 +1,7 @@
 #ifndef DXFEntity_hpp
 #define DXFEntity_hpp
 
+#include <cmath>
 #include <iostream>
 #include <vector>
 
@@ -37,6 +38,7 @@ namespace DXF
     public:
         virtual void insert_property(int group_code, float value) = 0;
         virtual void bark() = 0;
+        virtual std::vector<Point> make_points(float step = 1.0f) = 0;
     };
 
     class Line : public Entity
@@ -44,6 +46,7 @@ namespace DXF
     public:
         void insert_property(int group_code, float value) override;
         void bark() override;
+        std::vector<Point> make_points(float step) override;
 
     private:
         Point start, end;
@@ -54,6 +57,7 @@ namespace DXF
     public:
         void insert_property(int group_code, float value) override;
         void bark() override;
+        std::vector<Point> make_points(float step) override;
 
     private:
         Point center;
@@ -65,6 +69,7 @@ namespace DXF
     public:
         void insert_property(int group_code, float value) override;
         void bark() override;
+        std::vector<Point> make_points(float step) override;
 
     private:
         Point center;
@@ -76,6 +81,7 @@ namespace DXF
     public:
         void insert_property(int group_code, float value) override;
         void bark() override;
+        std::vector<Point> make_points(float step) override;
 
     private:
         Point center, major_axis;

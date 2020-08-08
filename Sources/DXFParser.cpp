@@ -66,10 +66,10 @@ namespace DXF
                 {
                     mid_parse_entity = std::make_shared<Ellipse>();
                 }
-                if (value == "SPLINE")
-                {
-                    mid_parse_entity = std::make_shared<Spline>();
-                }
+                // if (value == "SPLINE")
+                // {
+                //     mid_parse_entity = std::make_shared<Spline>();
+                // }
             }
 
             if (value == "EOF")
@@ -80,7 +80,8 @@ namespace DXF
 
         for (auto &ent : m_parsed_entities)
         {
-            ent->bark();
+            // ent->bark();
+            ent->make_points();
         }
     }
 
