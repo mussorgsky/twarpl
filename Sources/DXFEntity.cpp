@@ -2,7 +2,7 @@
 
 namespace DXF
 {
-    void Entity::set_handle(std::string name)
+    void Entity::set_handle(int name)
     {
         handle = name;
     }

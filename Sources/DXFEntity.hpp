@@ -37,13 +37,13 @@ namespace DXF
     class Entity
     {
     protected:
-        std::string handle;
+        int handle;
 
     public:
         virtual void insert_property(int group_code, float value) = 0;
         virtual void bark() = 0;
         virtual std::vector<Point> make_points(float step = 1.0f) = 0;
-        void set_handle(std::string name);
+        void set_handle(int name);
     };
 
     class Line : public Entity

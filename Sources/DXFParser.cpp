@@ -33,7 +33,7 @@ namespace DXF
                     {
                         if (group_code == Codes::HANDLE)
                         {
-                            mid_parse_entity->set_handle(value);
+                            mid_parse_entity->set_handle(std::stoi(value, 0, 16));
                         }
                         else
                         {
