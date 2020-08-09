@@ -31,7 +31,14 @@ namespace DXF
                 {
                     if (mid_parse_entity)
                     {
-                        mid_parse_entity->insert_property(group_code, std::stof(value));
+                        if (group_code == Codes::HANDLE)
+                        {
+                            mid_parse_entity->set_handle(value);
+                        }
+                        else
+                        {
+                            mid_parse_entity->insert_property(group_code, std::stof(value));
+                        }
                     }
                 }
             }

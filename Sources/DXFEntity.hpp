@@ -10,6 +10,7 @@ namespace DXF
     enum Codes
     {
         ENTITY_TYPE = 0,
+        HANDLE = 5,
         CP_X = 10,
         CP_Y = 20,
         FP_X = 11,
@@ -35,10 +36,14 @@ namespace DXF
 
     class Entity
     {
+    protected:
+        std::string handle;
+
     public:
         virtual void insert_property(int group_code, float value) = 0;
         virtual void bark() = 0;
         virtual std::vector<Point> make_points(float step = 1.0f) = 0;
+        void set_handle(std::string name);
     };
 
     class Line : public Entity

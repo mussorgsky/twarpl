@@ -19,8 +19,9 @@ namespace DXF
 
         std::vector<std::shared_ptr<Entity>> m_parsed_entities;
 
-        std::array<Codes, 17> m_group_codes = {
+        std::array<Codes, 18> m_group_codes = {
             ENTITY_TYPE,
+            HANDLE,
             CP_X,
             CP_Y,
             FP_X,

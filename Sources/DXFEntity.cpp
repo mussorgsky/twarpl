@@ -2,6 +2,11 @@
 
 namespace DXF
 {
+    void Entity::set_handle(std::string name)
+    {
+        handle = name;
+    }
+
     void Line::insert_property(int group_code, float value)
     {
         switch (group_code)
@@ -29,7 +34,7 @@ namespace DXF
 
     void Line::bark()
     {
-        std::cout << "I'm a fully parsed LINE :)\t";
+        std::cout << "I'm a fully parsed LINE :) " << handle << "\t";
         std::cout << "I start at (" << start.x << ", " << start.y << ") and end at ";
         std::cout << "(" << end.x << ", " << end.y << ")\n";
     }
@@ -86,7 +91,7 @@ namespace DXF
 
     void Circle::bark()
     {
-        std::cout << "I'm a fully parsed CIRCLE :)\t";
+        std::cout << "I'm a fully parsed CIRCLE :) " << handle << "\t";
         std::cout << "center at (" << center.x << ", " << center.y << ") with a radius of ";
         std::cout << "(" << radius << ")\n";
     }
@@ -159,7 +164,7 @@ namespace DXF
 
     void Arc::bark()
     {
-        std::cout << "I'm a fully parsed ARC :)\t";
+        std::cout << "I'm a fully parsed ARC :) " << handle << "\t";
         std::cout << "have a center (" << center.x << ", " << center.y << ") radius of " << radius;
         std::cout << " and such start end angles (" << start << ", " << end << ")\n";
     }
@@ -241,7 +246,7 @@ namespace DXF
 
     void Ellipse::bark()
     {
-        std::cout << "I'm a fully parsed ELLIPSE :)\t";
+        std::cout << "I'm a fully parsed ELLIPSE :) " << handle << "\t";
         std::cout << "have a center (" << center.x << ", " << center.y << ") axis ratio of " << ratio;
         std::cout << " major axis is (" << major_axis.x << ", " << major_axis.y << ")";
         std::cout << " start and end (" << start << ", " << end << ")\n";
@@ -326,7 +331,7 @@ namespace DXF
 
     void Spline::bark()
     {
-        std::cout << "I'm a fully parsed spline :)\t";
+        std::cout << "I'm a fully parsed spline :) " << handle << "\t";
         std::cout << "my flags " << flags << " my degree " << degree;
         std::cout << " tolerance " << knot_tolerance << "\n";
 
