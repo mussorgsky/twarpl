@@ -294,6 +294,7 @@ namespace DXF
         {
         case Codes::CP_X:
             cps.push_back(Point{value, 0.0f});
+            weights.push_back(1.0f);
             break;
 
         case Codes::CP_Y:
@@ -324,6 +325,10 @@ namespace DXF
             cps.reserve((int)value);
             break;
 
+        case Codes::WEIGHT:
+            weights.back() = value;
+            break;
+
         default:
             break;
         }
@@ -348,6 +353,79 @@ namespace DXF
             std::cout << "(" << cp.x << ", " << cp.y << "), ";
         }
         std::cout << "\n";
+    }
+
+    std::vector<Point> Spline::make_points(float step)
+    {
+        std::vector<Point> points;
+
+        float rough_approx_length = 0.0f;
+        Point last_cp = cps[0];
+        for (int i = 1; i < cps.size(); ++i)
+        {
+            Point cp = cps[i];
+            rough_approx_length += std::sqrt(std::pow(cp.x - last_cp.x, 2) + std::pow(cp.y - last_cp.y, 2));
+            last_cp = cp;
+        }
+
+        if (flags && Mask::CLOSED)
+        {
+            rough_approx_length += std::sqrt(std::pow(cps[0].x - last_cp.x, 2) + std::pow(cps[0].y - last_cp.y, 2));
+        }
+
+        const int step_count = (int)std::ceil(rough_approx_length / step);
+        const int point_count = step_count + 1;
+        const float min_parameter = knots.front();
+        const float max_parameter = knots.back();
+        const float parameter_step = (max_parameter - min_parameter) / step_count;
+
+        points.reserve(point_count);
+
+        for (float parameter = min_parameter; parameter < max_parameter; parameter += parameter_step)
+        {
+            Point numerator{0.0f, 0.0f};
+            Point denominator{0.0f, 0.0f};
+            for (int i = 0; i < cps.size(); ++i)
+            {
+                float basis = normalized_b_spline_basis(i, degree, parameter);
+                Point cp = cps[i];
+                float weight = weights[i];
+
+                numerator.x += weight * cp.x * basis;
+                denominator.x += weight * basis;
+
+                numerator.y += weight * cp.y * basis;
+                denominator.y += weight * basis;
+            }
+            points.push_back(Point{numerator.x / denominator.x, numerator.y / denominator.y});
+        }
+
+        std::cout << "\n";
+        for (Point p : points)
+        {
+            std::cout << p.x << ", " << p.y << "\n";
+        }
+        std::cout << "\n";
+
+        return points;
+    }
+
+    float Spline::normalized_b_spline_basis(int i, int k, float u)
+    {
+        if (k == 0)
+        {
+            return (u >= knots[i] && u < knots[i + 1]) ? 1.0f : 0.0f;
+        }
+
+        float num_a = (u - knots[i]);
+        float den_a = (knots[i + k] - knots[i]);
+        float a = (num_a == 0.0f || den_a == 0.0f) ? 0.0f : num_a / den_a;
+
+        float num_b = (knots[i + k + 1] - u);
+        float den_b = (knots[i + k + 1] - knots[i + 1]);
+        float b = (num_b == 0.0f || den_b == 0.0f) ? 0.0f : num_b / den_b;
+
+        return a * normalized_b_spline_basis(i, k - 1, u) + b * normalized_b_spline_basis(i + 1, k - 1, u);
     }
 
 } // namespace DXF

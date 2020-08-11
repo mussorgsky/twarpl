@@ -18,6 +18,7 @@ namespace DXF
         RADIUS = 40,
         KNOT_VALUE = 40,
         SEMIMAJOR_AXIS_RATIO = 40,
+        WEIGHT = 41,
         ELLIPSE_START = 41,
         ELLIPSE_END = 42,
         KNOT_TOLERANCE = 42,
@@ -98,6 +99,7 @@ namespace DXF
     public:
         void insert_property(int group_code, float value) override;
         void bark() override;
+        std::vector<Point> make_points(float step) override;
 
     private:
         enum Mask
@@ -110,8 +112,9 @@ namespace DXF
         };
         int flags, degree;
         float knot_tolerance;
-        std::vector<float> knots;
+        std::vector<float> knots, weights;
         std::vector<Point> cps;
+        float normalized_b_spline_basis(int i, int k, float u);
     };
 
 } // namespace DXF
