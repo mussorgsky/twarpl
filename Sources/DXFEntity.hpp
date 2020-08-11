@@ -100,6 +100,14 @@ namespace DXF
         void bark() override;
 
     private:
+        enum Mask
+        {
+            CLOSED = 1,
+            PERIODIC = 2,
+            RATIONAL = 4,
+            PLANAR = 8,
+            LINEAR = 16,
+        };
         int flags, degree;
         float knot_tolerance;
         std::vector<float> knots;
