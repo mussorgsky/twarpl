@@ -17,21 +17,21 @@ namespace DXF
         while (!m_file.eof())
         {
             std::string line, value;
-            int group_code;
+            GroupCode group_code;
 
             std::getline(m_file, line);
             std::getline(m_file, value);
 
-            group_code = std::stoi(line);
+            group_code = static_cast<GroupCode>(std::stoi(line));
             remove_char(value, " \r");
 
-            if (group_code != Codes::ENTITY_TYPE && in_entity)
+            if (group_code != GroupCode::ENTITY_TYPE && in_entity)
             {
                 if (std::count(m_group_codes.begin(), m_group_codes.end(), group_code) > 0)
                 {
                     if (mid_parse_entity)
                     {
-                        if (group_code == Codes::HANDLE)
+                        if (group_code == GroupCode::HANDLE)
                         {
                             mid_parse_entity->set_handle(std::stoi(value, 0, 16));
                         }
@@ -43,7 +43,7 @@ namespace DXF
                 }
             }
 
-            if (group_code == Codes::ENTITY_TYPE && in_entity)
+            if (group_code == GroupCode::ENTITY_TYPE && in_entity)
             {
                 in_entity = false;
                 if (mid_parse_entity)
@@ -53,7 +53,7 @@ namespace DXF
                 }
             }
 
-            if (group_code == Codes::ENTITY_TYPE && !in_entity)
+            if (group_code == GroupCode::ENTITY_TYPE && !in_entity)
             {
                 in_entity = true;
 

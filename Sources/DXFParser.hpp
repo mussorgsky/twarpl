@@ -19,25 +19,25 @@ namespace DXF
 
         std::vector<std::shared_ptr<Entity>> m_parsed_entities;
 
-        std::array<Codes, 19> m_group_codes = {
-            ENTITY_TYPE,
-            HANDLE,
-            CP_X,
-            CP_Y,
-            FP_X,
-            FP_Y,
-            RADIUS,
-            KNOT_VALUE,
-            SEMIMAJOR_AXIS_RATIO,
-            ELLIPSE_START,
-            ELLIPSE_END,
-            KNOT_TOLERANCE,
-            START_ANGLE,
-            END_ANGLE,
-            SPLINE_FLAG,
-            SPLINE_DEGREE,
-            KNOT_COUNT,
-            CP_COUNT,
+        std::array<GroupCode, 19> m_group_codes = {
+            GroupCode::ENTITY_TYPE,
+            GroupCode::HANDLE,
+            GroupCode::CP_X,
+            GroupCode::CP_Y,
+            GroupCode::FP_X,
+            GroupCode::FP_Y,
+            GroupCode::RADIUS,
+            GroupCode::KNOT_VALUE,
+            GroupCode::SEMIMAJOR_AXIS_RATIO,
+            GroupCode::ELLIPSE_START,
+            GroupCode::ELLIPSE_END,
+            GroupCode::KNOT_TOLERANCE,
+            GroupCode::START_ANGLE,
+            GroupCode::END_ANGLE,
+            GroupCode::SPLINE_FLAG,
+            GroupCode::SPLINE_DEGREE,
+            GroupCode::KNOT_COUNT,
+            GroupCode::CP_COUNT,
         };
 
         void remove_char(std::string &, std::string);

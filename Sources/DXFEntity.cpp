@@ -7,23 +7,23 @@ namespace DXF
         handle = name;
     }
 
-    void Line::insert_property(int group_code, float value)
+    void Line::insert_property(GroupCode code, float value)
     {
-        switch (group_code)
+        switch (code)
         {
-        case Codes::CP_X:
+        case GroupCode::CP_X:
             start.x = value;
             break;
 
-        case Codes::CP_Y:
+        case GroupCode::CP_Y:
             start.y = value;
             break;
 
-        case Codes::FP_X:
+        case GroupCode::FP_X:
             end.x = value;
             break;
 
-        case Codes::FP_Y:
+        case GroupCode::FP_Y:
             end.y = value;
             break;
 
@@ -68,19 +68,19 @@ namespace DXF
         return points;
     }
 
-    void Circle::insert_property(int group_code, float value)
+    void Circle::insert_property(GroupCode code, float value)
     {
-        switch (group_code)
+        switch (code)
         {
-        case Codes::CP_X:
+        case GroupCode::CP_X:
             center.x = value;
             break;
 
-        case Codes::CP_Y:
+        case GroupCode::CP_Y:
             center.y = value;
             break;
 
-        case Codes::RADIUS:
+        case GroupCode::RADIUS:
             radius = value;
             break;
 
@@ -133,27 +133,27 @@ namespace DXF
         return points;
     }
 
-    void Arc::insert_property(int group_code, float value)
+    void Arc::insert_property(GroupCode code, float value)
     {
-        switch (group_code)
+        switch (code)
         {
-        case Codes::CP_X:
+        case GroupCode::CP_X:
             center.x = value;
             break;
 
-        case Codes::CP_Y:
+        case GroupCode::CP_Y:
             center.y = value;
             break;
 
-        case Codes::RADIUS:
+        case GroupCode::RADIUS:
             radius = value;
             break;
 
-        case Codes::START_ANGLE:
+        case GroupCode::START_ANGLE:
             start = value;
             break;
 
-        case Codes::END_ANGLE:
+        case GroupCode::END_ANGLE:
             end = value;
             break;
 
@@ -207,35 +207,35 @@ namespace DXF
         return points;
     }
 
-    void Ellipse::insert_property(int group_code, float value)
+    void Ellipse::insert_property(GroupCode code, float value)
     {
-        switch (group_code)
+        switch (code)
         {
-        case Codes::CP_X:
+        case GroupCode::CP_X:
             center.x = value;
             break;
 
-        case Codes::CP_Y:
+        case GroupCode::CP_Y:
             center.y = value;
             break;
 
-        case Codes::FP_X:
+        case GroupCode::FP_X:
             major_axis.x = value;
             break;
 
-        case Codes::FP_Y:
+        case GroupCode::FP_Y:
             major_axis.y = value;
             break;
 
-        case Codes::SEMIMAJOR_AXIS_RATIO:
+        case GroupCode::SEMIMAJOR_AXIS_RATIO:
             ratio = value;
             break;
 
-        case Codes::ELLIPSE_START:
+        case GroupCode::ELLIPSE_START:
             start = value;
             break;
 
-        case Codes::ELLIPSE_END:
+        case GroupCode::ELLIPSE_END:
             end = value;
             break;
 
@@ -288,44 +288,44 @@ namespace DXF
         return points;
     }
 
-    void Spline::insert_property(int group_code, float value)
+    void Spline::insert_property(GroupCode code, float value)
     {
-        switch (group_code)
+        switch (code)
         {
-        case Codes::CP_X:
+        case GroupCode::CP_X:
             cps.push_back(Point{value, 0.0f});
             weights.push_back(1.0f);
             break;
 
-        case Codes::CP_Y:
+        case GroupCode::CP_Y:
             cps.back().y = value;
             break;
 
-        case Codes::KNOT_VALUE:
+        case GroupCode::KNOT_VALUE:
             knots.push_back(value);
             break;
 
-        case Codes::KNOT_TOLERANCE:
+        case GroupCode::KNOT_TOLERANCE:
             knot_tolerance = value;
             break;
 
-        case Codes::SPLINE_FLAG:
+        case GroupCode::SPLINE_FLAG:
             flags = (int)value;
             break;
 
-        case Codes::SPLINE_DEGREE:
+        case GroupCode::SPLINE_DEGREE:
             degree = (int)value;
             break;
 
-        case Codes::KNOT_COUNT:
+        case GroupCode::KNOT_COUNT:
             knots.reserve((int)value);
             break;
 
-        case Codes::CP_COUNT:
+        case GroupCode::CP_COUNT:
             cps.reserve((int)value);
             break;
 
-        case Codes::WEIGHT:
+        case GroupCode::WEIGHT:
             weights.back() = value;
             break;
 

@@ -7,7 +7,7 @@
 
 namespace DXF
 {
-    enum Codes
+    enum class GroupCode
     {
         ENTITY_TYPE = 0,
         HANDLE = 5,
@@ -41,7 +41,7 @@ namespace DXF
         int handle;
 
     public:
-        virtual void insert_property(int group_code, float value) = 0;
+        virtual void insert_property(GroupCode code, float value) = 0;
         virtual void bark() = 0;
         virtual std::vector<Point> make_points(float step = 1.0f) = 0;
         void set_handle(int name);
@@ -50,7 +50,7 @@ namespace DXF
     class Line : public Entity
     {
     public:
-        void insert_property(int group_code, float value) override;
+        void insert_property(GroupCode code, float value) override;
         void bark() override;
         std::vector<Point> make_points(float step) override;
 
@@ -61,7 +61,7 @@ namespace DXF
     class Circle : public Entity
     {
     public:
-        void insert_property(int group_code, float value) override;
+        void insert_property(GroupCode code, float value) override;
         void bark() override;
         std::vector<Point> make_points(float step) override;
 
@@ -73,7 +73,7 @@ namespace DXF
     class Arc : public Entity
     {
     public:
-        void insert_property(int group_code, float value) override;
+        void insert_property(GroupCode code, float value) override;
         void bark() override;
         std::vector<Point> make_points(float step) override;
 
@@ -85,7 +85,7 @@ namespace DXF
     class Ellipse : public Entity
     {
     public:
-        void insert_property(int group_code, float value) override;
+        void insert_property(GroupCode code, float value) override;
         void bark() override;
         std::vector<Point> make_points(float step) override;
 
@@ -97,7 +97,7 @@ namespace DXF
     class Spline : public Entity
     {
     public:
-        void insert_property(int group_code, float value) override;
+        void insert_property(GroupCode code, float value) override;
         void bark() override;
         std::vector<Point> make_points(float step) override;
 
