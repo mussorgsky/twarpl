@@ -28,6 +28,7 @@ namespace DXF
         SPLINE_DEGREE = 71,
         KNOT_COUNT = 72,
         CP_COUNT = 73,
+        VERTEX_COUNT = 90,
     };
 
     struct Point
@@ -115,6 +116,17 @@ namespace DXF
         std::vector<float> knots, weights;
         std::vector<Point> cps;
         float normalized_b_spline_basis(int i, int k, float u);
+    };
+
+    class LWPolyline : public Entity
+    {
+    public:
+        void insert_property(GroupCode code, float value) override;
+        void bark() override;
+        std::vector<Point> make_points(float step) override;
+
+    private:
+        std::vector<Point> vertices;
     };
 
 } // namespace DXF

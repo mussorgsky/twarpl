@@ -428,4 +428,76 @@ namespace DXF
         return a * normalized_b_spline_basis(i, k - 1, u) + b * normalized_b_spline_basis(i + 1, k - 1, u);
     }
 
+    void LWPolyline::insert_property(GroupCode code, float value)
+    {
+        switch (code)
+        {
+        case GroupCode::VERTEX_COUNT:
+            vertices.reserve((int)value);
+            break;
+
+        case GroupCode::CP_X:
+            vertices.push_back(Point{value, 0.0f});
+            break;
+
+        case GroupCode::CP_Y:
+            vertices.back().y = value;
+
+        default:
+            break;
+        }
+    }
+
+    void LWPolyline::bark()
+    {
+        std::cout << "I'm a fully parsed LWPolyline :) " << handle << "\t";
+        std::cout << "have " << vertices.size() << " vertices: ";
+        for (Point p : vertices)
+        {
+            std::cout << "(" << p.x << ", " << p.y << "), ";
+        }
+        std::cout << "\n";
+    }
+
+    std::vector<Point> LWPolyline::make_points(float step)
+    {
+        std::vector<Point> points;
+
+        if (vertices.size() < 2)
+        {
+            return points;
+        }
+
+        Point start, end;
+        for (int i = 1; i < vertices.size(); ++i)
+        {
+            start = vertices[i - 1];
+            end = vertices[i];
+
+            float length = std::sqrt(std::pow(end.x - start.x, 2) + std::pow(end.y - start.y, 2));
+
+            int step_count = (int)std::ceil(length / step);
+            int point_count = step_count + 1;
+
+            Point step_vector{(end.x - start.x) / step_count, (end.y - start.y) / step_count};
+
+            points.push_back(start);
+            for (int j = 0; j < step_count; ++j)
+            {
+                Point new_point;
+                new_point.x = points.back().x + step_vector.x;
+                new_point.y = points.back().y + step_vector.y;
+                points.push_back(new_point);
+            }
+        }
+
+        for (Point p : points)
+        {
+            std::cout << p.x << ", " << p.y << "\n";
+        }
+        std::cout << "\n";
+
+        return points;
+    }
+
 } // namespace DXF

@@ -77,6 +77,10 @@ namespace DXF
                 {
                     mid_parse_entity = std::make_shared<Spline>();
                 }
+                if (value == "LWPOLYLINE")
+                {
+                    mid_parse_entity = std::make_shared<LWPolyline>();
+                }
             }
 
             if (value == "EOF")
