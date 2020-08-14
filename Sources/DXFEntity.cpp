@@ -400,7 +400,6 @@ namespace DXF
             points.push_back(Point{numerator.x / denominator.x, numerator.y / denominator.y});
         }
 
-        std::cout << "\n";
         for (Point p : points)
         {
             std::cout << p.x << ", " << p.y << "\n";
