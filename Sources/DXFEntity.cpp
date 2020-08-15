@@ -7,6 +7,25 @@ namespace DXF
         handle = name;
     }
 
+    void Entity::append_points_from_line(std::vector<Point> &points, Point start, Point end, float step)
+    {
+        float length = std::sqrt(std::pow(end.x - start.x, 2) + std::pow(end.y - start.y, 2));
+
+        int step_count = (int)std::ceil(length / step);
+        int point_count = step_count + 1;
+
+        Point step_vector{(end.x - start.x) / step_count, (end.y - start.y) / step_count};
+
+        points.push_back(start);
+        for (int j = 0; j < step_count; ++j)
+        {
+            Point new_point;
+            new_point.x = points.back().x + step_vector.x;
+            new_point.y = points.back().y + step_vector.y;
+            points.push_back(new_point);
+        }
+    }
+
     void Line::insert_property(GroupCode code, float value)
     {
         switch (code)
@@ -41,23 +60,8 @@ namespace DXF
 
     std::vector<Point> Line::make_points(float step)
     {
-        float length = std::sqrt(std::pow(end.x - start.x, 2) + std::pow(end.y - start.y, 2));
-
-        int step_count = (int)std::ceil(length / step);
-        int point_count = step_count + 1;
-
-        Point step_vector{(end.x - start.x) / step_count, (end.y - start.y) / step_count};
-
         std::vector<Point> points;
-        points.reserve(point_count);
-        points.push_back(start);
-        for (int i = 0; i < step_count; ++i)
-        {
-            Point new_point;
-            new_point.x = points.back().x + step_vector.x;
-            new_point.y = points.back().y + step_vector.y;
-            points.push_back(new_point);
-        }
+        append_points_from_line(points, start, end, step);
 
         for (Point p : points)
         {
@@ -473,21 +477,7 @@ namespace DXF
             start = vertices[i - 1];
             end = vertices[i];
 
-            float length = std::sqrt(std::pow(end.x - start.x, 2) + std::pow(end.y - start.y, 2));
-
-            int step_count = (int)std::ceil(length / step);
-            int point_count = step_count + 1;
-
-            Point step_vector{(end.x - start.x) / step_count, (end.y - start.y) / step_count};
-
-            points.push_back(start);
-            for (int j = 0; j < step_count; ++j)
-            {
-                Point new_point;
-                new_point.x = points.back().x + step_vector.x;
-                new_point.y = points.back().y + step_vector.y;
-                points.push_back(new_point);
-            }
+            append_points_from_line(points, start, end, step);
         }
 
         for (Point p : points)
