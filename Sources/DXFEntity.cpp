@@ -7,6 +7,11 @@ namespace DXF
         handle = name;
     }
 
+    int Entity::get_handle()
+    {
+        return handle;
+    }
+
     void Entity::append_points_from_line(std::vector<Point> &points, Point start, Point end, float step)
     {
         float length = std::sqrt(std::pow(end.x - start.x, 2) + std::pow(end.y - start.y, 2));

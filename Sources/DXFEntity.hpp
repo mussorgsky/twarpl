@@ -46,6 +46,7 @@ namespace DXF
         virtual void bark() = 0;
         virtual std::vector<Point> make_points(float step = 1.0f) = 0;
         void set_handle(int name);
+        int get_handle();
         void append_points_from_line(std::vector<Point> &points, Point start, Point end, float step);
     };
 
