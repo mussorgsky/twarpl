@@ -10,17 +10,18 @@ namespace DXF
         }
     }
 
-    void Parser::parse()
+    std::vector<std::shared_ptr<Entity>> Parser::parse(std::ifstream &file)
     {
+        std::vector<std::shared_ptr<Entity>> parsed_entities;
         bool in_entity = false;
         std::shared_ptr<Entity> mid_parse_entity;
-        while (!m_file.eof())
+        while (!file.eof())
         {
             std::string line, value;
             GroupCode group_code;
 
-            std::getline(m_file, line);
-            std::getline(m_file, value);
+            std::getline(file, line);
+            std::getline(file, value);
 
             group_code = static_cast<GroupCode>(std::stoi(line));
             remove_char(value, " \r");
@@ -48,7 +49,7 @@ namespace DXF
                 in_entity = false;
                 if (mid_parse_entity)
                 {
-                    m_parsed_entities.push_back(mid_parse_entity);
+                    parsed_entities.push_back(mid_parse_entity);
                     mid_parse_entity = nullptr;
                 }
             }
@@ -89,11 +90,7 @@ namespace DXF
             }
         }
 
-        for (auto &ent : m_parsed_entities)
-        {
-            // ent->bark();
-            ent->make_points();
-        }
+        return parsed_entities;
     }
 
 } // namespace DXF

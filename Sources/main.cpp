@@ -29,6 +29,11 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    DXF::Parser parser(in_file);
-    parser.parse();
+    std::vector<std::shared_ptr<DXF::Entity>> entities = DXF::Parser::parse(in_file);
+    in_file.close();
+    if (entities.size() == 0)
+    {
+        std::cout << "Couldn't parse any DXF entities.\n";
+        return 1;
+    }
 }

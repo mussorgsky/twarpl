@@ -15,11 +15,7 @@ namespace DXF
 {
     class Parser
     {
-        std::ifstream &m_file;
-
-        std::vector<std::shared_ptr<Entity>> m_parsed_entities;
-
-        std::array<GroupCode, 20> m_group_codes = {
+        constexpr static std::array<GroupCode, 20> m_group_codes = {
             GroupCode::ENTITY_TYPE,
             GroupCode::HANDLE,
             GroupCode::CP_X,
@@ -41,14 +37,10 @@ namespace DXF
             GroupCode::VERTEX_COUNT,
         };
 
-        void remove_char(std::string &, std::string);
+        static void remove_char(std::string &, std::string);
 
     public:
-        Parser(std::ifstream &file) : m_file(file)
-        {
-        }
-
-        void parse();
+        static std::vector<std::shared_ptr<Entity>> parse(std::ifstream &file);
     };
 
 } // namespace DXF
