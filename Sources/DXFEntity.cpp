@@ -68,12 +68,6 @@ namespace DXF
         std::vector<Point> points;
         append_points_from_line(points, start, end, step);
 
-        for (Point p : points)
-        {
-            std::cout << p.x << ", " << p.y << "\n";
-        }
-        std::cout << "\n";
-
         return points;
     }
 
@@ -132,12 +126,6 @@ namespace DXF
             points.push_back(new_point);
             angle += step_angle;
         }
-
-        for (Point p : points)
-        {
-            std::cout << p.x << ", " << p.y << "\n";
-        }
-        std::cout << "\n";
 
         return points;
     }
@@ -206,12 +194,6 @@ namespace DXF
             points.push_back(new_point);
             angle += step_angle;
         }
-
-        for (Point p : points)
-        {
-            std::cout << p.x << ", " << p.y << "\n";
-        }
-        std::cout << "\n";
 
         return points;
     }
@@ -287,12 +269,6 @@ namespace DXF
             points.push_back(new_point);
             angle += step_angle;
         }
-
-        for (Point p : points)
-        {
-            std::cout << p.x << ", " << p.y << "\n";
-        }
-        std::cout << "\n";
 
         return points;
     }
@@ -409,12 +385,6 @@ namespace DXF
             points.push_back(Point{numerator.x / denominator.x, numerator.y / denominator.y});
         }
 
-        for (Point p : points)
-        {
-            std::cout << p.x << ", " << p.y << "\n";
-        }
-        std::cout << "\n";
-
         return points;
     }
 
@@ -484,12 +454,6 @@ namespace DXF
 
             append_points_from_line(points, start, end, step);
         }
-
-        for (Point p : points)
-        {
-            std::cout << p.x << ", " << p.y << "\n";
-        }
-        std::cout << "\n";
 
         return points;
     }
