@@ -60,7 +60,16 @@ int main(int argc, char *argv[])
         return 1;
     }
 
-    std::vector<std::shared_ptr<DXF::Entity>> entities = DXF::Parser::parse(in_file);
+    std::vector<std::shared_ptr<DXF::Entity>> entities;
+    try
+    {
+        entities = DXF::Parser::parse(in_file);
+    }
+    catch (...)
+    {
+        std::cout << "Couldn't parse input file. Please check if it's a valid DXF file.\n";
+        return 1;
+    }
     in_file.close();
     if (entities.size() == 0)
     {
