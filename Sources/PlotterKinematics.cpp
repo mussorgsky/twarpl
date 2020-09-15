@@ -67,3 +67,8 @@ std::vector<float> TwinArmPlotterKinematics::inverse_kinematics(Point target)
 
     return angles;
 }
+
+std::unique_ptr<PlotterSimulation> TwinArmPlotterKinematics::create_simulation(std::string g_code)
+{
+    return std::make_unique<TwinArmPlotterSimulation>(g_code, m_shoulder_separation, m_forearm_length, m_upperarm_length);
+}

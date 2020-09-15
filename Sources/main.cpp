@@ -1,6 +1,8 @@
 #include <fstream>
 #include <iostream>
 
+#include <SFML/Graphics.hpp>
+
 #include "DXFParser.hpp"
 #include "PlotterKinematics.hpp"
 
@@ -147,5 +149,62 @@ int main(int argc, char *argv[])
     else
     {
         std::cout << "All " << reachable_count << " points are reachable.\n";
+    }
+
+    if (argc == 1)
+    {
+        std::cout << "Show visualization of the plotter's movement? (y/n): ";
+        std::string visualization_answer;
+        std::cin >> visualization_answer;
+        if (visualization_answer == "yes" || visualization_answer == "y" || visualization_answer == "Y")
+        {
+            show_visualization = true;
+        }
+        else
+        {
+            show_visualization = false;
+        }
+    }
+
+    if (show_visualization)
+    {
+        std::cout << "Opening visualization window.\n";
+
+        sf::ContextSettings settings;
+        settings.antialiasingLevel = 2;
+        sf::RenderWindow window(sf::VideoMode(800, 600), "Plotter Visualization", sf::Style::Default, settings);
+        window.setFramerateLimit(60);
+
+        sf::Clock delta_clock;
+        sf::View camera = sf::View(sf::Vector2f(0.0f, 160.0f), sf::Vector2f(480.0f, -360.0f));
+        window.setView(camera);
+
+        std::unique_ptr<PlotterSimulation> simulation = kinematics->create_simulation(g_code);
+
+        while (window.isOpen() && !simulation->is_finished())
+        {
+            sf::Event event;
+            while (window.pollEvent(event))
+            {
+                if (event.type == sf::Event::Closed)
+                {
+                    window.close();
+                }
+            }
+
+            window.clear();
+
+            float delta_time = delta_clock.restart().asSeconds();
+            simulation->update(delta_time);
+
+            for (auto drawable : simulation->get_drawables())
+            {
+                window.draw(*drawable);
+            }
+
+            window.display();
+        }
+
+        std::cout << "Visualization finished, exiting.\n";
     }
 }
