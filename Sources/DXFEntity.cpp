@@ -2,6 +2,11 @@
 
 namespace DXF
 {
+    float distance_2d(Point a, Point b)
+    {
+        return std::sqrt(std::pow(b.x - a.x, 2) + std::pow(b.y - a.y, 2));
+    }
+
     void Entity::set_handle(int name)
     {
         handle = name;

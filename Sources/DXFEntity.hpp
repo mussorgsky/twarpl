@@ -36,6 +36,8 @@ namespace DXF
         float x, y;
     };
 
+    float distance_2d(Point a, Point b);
+
     class Entity
     {
     protected:
