@@ -44,7 +44,6 @@ namespace DXF
 
     public:
         virtual void insert_property(GroupCode code, float value) = 0;
-        virtual void bark() = 0;
         virtual std::vector<Point> make_points(float step = 1.0f) = 0;
         void set_handle(int name);
         int get_handle();
@@ -54,7 +53,6 @@ namespace DXF
     {
     public:
         void insert_property(GroupCode code, float value) override;
-        void bark() override;
         std::vector<Point> make_points(float step) override;
 
     private:
@@ -65,7 +63,6 @@ namespace DXF
     {
     public:
         void insert_property(GroupCode code, float value) override;
-        void bark() override;
         std::vector<Point> make_points(float step) override;
 
     private:
@@ -77,7 +74,6 @@ namespace DXF
     {
     public:
         void insert_property(GroupCode code, float value) override;
-        void bark() override;
         std::vector<Point> make_points(float step) override;
 
     private:
@@ -89,7 +85,6 @@ namespace DXF
     {
     public:
         void insert_property(GroupCode code, float value) override;
-        void bark() override;
         std::vector<Point> make_points(float step) override;
 
     private:
@@ -101,7 +96,6 @@ namespace DXF
     {
     public:
         void insert_property(GroupCode code, float value) override;
-        void bark() override;
         std::vector<Point> make_points(float step) override;
 
     private:
@@ -124,7 +118,6 @@ namespace DXF
     {
     public:
         void insert_property(GroupCode code, float value) override;
-        void bark() override;
         std::vector<Point> make_points(float step) override;
 
     private:

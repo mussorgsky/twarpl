@@ -56,13 +56,6 @@ namespace DXF
         }
     }
 
-    void Line::bark()
-    {
-        std::cout << "I'm a fully parsed LINE :) " << handle << "\t";
-        std::cout << "I start at (" << start.x << ", " << start.y << ") and end at ";
-        std::cout << "(" << end.x << ", " << end.y << ")\n";
-    }
-
     std::vector<Point> Line::make_points(float step)
     {
         std::vector<Point> points;
@@ -90,13 +83,6 @@ namespace DXF
         default:
             break;
         }
-    }
-
-    void Circle::bark()
-    {
-        std::cout << "I'm a fully parsed CIRCLE :) " << handle << "\t";
-        std::cout << "center at (" << center.x << ", " << center.y << ") with a radius of ";
-        std::cout << "(" << radius << ")\n";
     }
 
     std::vector<Point> Circle::make_points(float step)
@@ -157,13 +143,6 @@ namespace DXF
         default:
             break;
         }
-    }
-
-    void Arc::bark()
-    {
-        std::cout << "I'm a fully parsed ARC :) " << handle << "\t";
-        std::cout << "have a center (" << center.x << ", " << center.y << ") radius of " << radius;
-        std::cout << " and such start end angles (" << start << ", " << end << ")\n";
     }
 
     std::vector<Point> Arc::make_points(float step)
@@ -233,14 +212,6 @@ namespace DXF
         default:
             break;
         }
-    }
-
-    void Ellipse::bark()
-    {
-        std::cout << "I'm a fully parsed ELLIPSE :) " << handle << "\t";
-        std::cout << "have a center (" << center.x << ", " << center.y << ") axis ratio of " << ratio;
-        std::cout << " major axis is (" << major_axis.x << ", " << major_axis.y << ")";
-        std::cout << " start and end (" << start << ", " << end << ")\n";
     }
 
     std::vector<Point> Ellipse::make_points(float step)
@@ -317,27 +288,6 @@ namespace DXF
         default:
             break;
         }
-    }
-
-    void Spline::bark()
-    {
-        std::cout << "I'm a fully parsed spline :) " << handle << "\t";
-        std::cout << "my flags " << flags << " my degree " << degree;
-        std::cout << " tolerance " << knot_tolerance << "\n";
-
-        std::cout << "\tI've got " << knots.size() << " knots:\t";
-        for (float knot : knots)
-        {
-            std::cout << knot << ", ";
-        }
-        std::cout << "\n";
-
-        std::cout << "\tI've got " << cps.size() << " control points:\t";
-        for (Point cp : cps)
-        {
-            std::cout << "(" << cp.x << ", " << cp.y << "), ";
-        }
-        std::cout << "\n";
     }
 
     std::vector<Point> Spline::make_points(float step)
@@ -424,17 +374,6 @@ namespace DXF
         default:
             break;
         }
-    }
-
-    void LWPolyline::bark()
-    {
-        std::cout << "I'm a fully parsed LWPolyline :) " << handle << "\t";
-        std::cout << "have " << vertices.size() << " vertices: ";
-        for (Point p : vertices)
-        {
-            std::cout << "(" << p.x << ", " << p.y << "), ";
-        }
-        std::cout << "\n";
     }
 
     std::vector<Point> LWPolyline::make_points(float step)
