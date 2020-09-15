@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "DXFParser.hpp"
+#include "PlotterKinematics.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -75,5 +76,76 @@ int main(int argc, char *argv[])
     {
         std::cout << "Couldn't parse any DXF entities.\n";
         return 1;
+    }
+
+    int reachable_count = 0,
+        uncheachable_count = 0;
+    bool pen_down = true;
+
+    std::string g_code = "G28\n";
+    std::unique_ptr<PlotterKinematics> kinematics = std::make_unique<TwinArmPlotterKinematics>(50.0f, 150.0f, 150.0f);
+    for (auto entity : entities)
+    {
+        if (pen_down)
+        {
+            g_code += "F0\n";
+            pen_down = false;
+        }
+        bool first = true;
+        for (auto point : entity->make_points(1.0f))
+        {
+            if (kinematics->check_reachability(point))
+            {
+                g_code += "G00";
+                int i = 0;
+                const char *rotational_g_code = "ABC";
+                for (float angle : kinematics->inverse_kinematics(point))
+                {
+                    g_code += " ";
+                    g_code += rotational_g_code[i++];
+                    g_code += " ";
+                    g_code += std::to_string(angle);
+                }
+                g_code += "\n";
+                reachable_count += 1;
+
+                if (first)
+                {
+                    if (!pen_down)
+                    {
+                        g_code += "F1\n";
+                        pen_down = true;
+                    }
+                    first = false;
+                }
+            }
+            else
+            {
+                if (pen_down)
+                {
+                    g_code += "F0\n";
+                    pen_down = false;
+                }
+                first = true;
+                uncheachable_count += 1;
+            }
+        }
+        g_code += "F0\n";
+    }
+    g_code += "G28\nM02\n";
+    out_file << g_code;
+    out_file.close();
+
+    std::cout << "Gcode file created (" << out_file_name << ").\n";
+
+    if (uncheachable_count > 0)
+    {
+        std::cout << "Out of " << reachable_count + uncheachable_count << " points, "
+                  << uncheachable_count << " are unreachable and ignored. ("
+                  << 100 * uncheachable_count / (reachable_count + uncheachable_count) << "%)\n";
+    }
+    else
+    {
+        std::cout << "All " << reachable_count << " points are reachable.\n";
     }
 }
