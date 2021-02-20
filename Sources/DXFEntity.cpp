@@ -308,7 +308,7 @@ namespace DXF
             last_cp = cp;
         }
 
-        if (flags && Mask::CLOSED)
+        if (flags & Mask::CLOSED)
         {
             rough_approx_length += std::sqrt(std::pow(cps[0].x - last_cp.x, 2) + std::pow(cps[0].y - last_cp.y, 2));
         }
