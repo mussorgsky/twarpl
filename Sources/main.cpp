@@ -106,14 +106,7 @@ int main(int argc, char *argv[])
         std::cout << "Show visualization of the plotter's movement? (y/n): ";
         std::string visualization_answer;
         std::cin >> visualization_answer;
-        if (visualization_answer == "yes" || visualization_answer == "y" || visualization_answer == "Y")
-        {
-            show_visualization = true;
-        }
-        else
-        {
-            show_visualization = false;
-        }
+        show_visualization = (visualization_answer == "yes" || visualization_answer == "y" || visualization_answer == "Y");
     }
 
     if (show_visualization)
