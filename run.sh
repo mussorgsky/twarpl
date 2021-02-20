@@ -1,3 +1,3 @@
 #!/bin/bash
 
-./Binaries/twarpl Examples/HouseThing.dxf dummy.gcode
+./Build/twarpl Examples/HouseThing.dxf dummy.gcode

@@ -4,3 +4,4 @@ Binaries/*
 *.gcode
 \#*.dxf
 .vscode/*
+Build/*
