@@ -101,16 +101,15 @@ void TwinArmPlotterSimulation::update(float delta_time)
 
 std::vector<sf::Drawable *> TwinArmPlotterSimulation::get_drawables()
 {
-    std::vector<sf::Drawable *> drawables{
-        (sf::Drawable *)&m_upperarm_left,
-        (sf::Drawable *)&m_upperarm_right,
-        (sf::Drawable *)&m_forearm_left,
-        (sf::Drawable *)&m_forearm_right};
-
+    std::vector<sf::Drawable *> drawables = {};
     for (auto &c : m_drawing)
     {
         drawables.push_back((sf::Drawable *)&c);
     }
+    drawables.push_back((sf::Drawable *)&m_upperarm_left);
+    drawables.push_back((sf::Drawable *)&m_upperarm_right);
+    drawables.push_back((sf::Drawable *)&m_forearm_left);
+    drawables.push_back((sf::Drawable *)&m_forearm_right);
 
     return drawables;
 }
